@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instituto Elo Rosa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rosa: #C2185B;
+    --rosa-claro: #F6D9E4;
+    --creme: #FDF7F5;
+    --texto: #3A2E33;
+    --verde: #6E9887;
+    --branco: #FFFFFF;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--texto);
+    background: var(--creme);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+  a { text-decoration:none; color: inherit; }
+
+  /* HEADER */
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 6%;
+    background: var(--branco);
+    position: sticky;
+    top:0;
+    z-index: 10;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  }
+
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    font-size:1.4rem;
+    color: var(--rosa);
+  }
+
+  .logo span{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    background: var(--rosa);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap: 2rem;
+  }
+
+  nav a{
+    font-weight:600;
+    font-size:0.95rem;
+    transition: color 0.2s;
+  }
+
+  nav a:hover{ color: var(--rosa); }
+
+  .btn{
+    display:inline-block;
+    background: var(--rosa);
+    color: var(--branco);
+    padding: 0.75rem 1.8rem;
+    border-radius: 30px;
+    font-weight:700;
+    font-size:0.95rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn:hover{ background:#9F1349; transform: translateY(-2px); }
+
+  .btn-outline{
+    background: transparent;
+    border: 2px solid var(--branco);
+    color: var(--branco);
+  }
+
+  .btn-outline:hover{ background: rgba(255,255,255,0.15); }
+
+  /* HERO */
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:3rem;
+    padding: 5rem 6%;
+    background: linear-gradient(120deg, var(--rosa-claro) 0%, var(--creme) 60%);
+  }
+
+  .hero-texto{ flex:1; }
+
+  .hero-texto h1{
+    font-size: 2.8rem;
+    line-height:1.2;
+    color: var(--rosa);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-texto p{
+    font-size:1.1rem;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-img{
+    flex:1;
+    display:flex;
+    justify-content:center;
+  }
+
+  .hero-img .circulo{
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: var(--rosa);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--branco);
+    font-family:'Playfair Display', serif;
+    font-size: 1.3rem;
+    text-align:center;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(194,24,91,0.25);
+  }
+
+  /* SOBRE */
+  section{ padding: 5rem 6%; }
+
+  .sobre{
+    display:flex;
+    gap:3rem;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+
+  .sobre-texto{ flex:1; min-width:300px; }
+
+  .sobre h2, .missao h2, .programas h2, .contato h2{
+    font-size:2.1rem;
+    color: var(--rosa);
+    margin-bottom:1.2rem;
+  }
+
+  /* MISSÃO / VALORES */
+  .missao{
+    background: var(--branco);
+    text-align:center;
+  }
+
+  .missao > p{
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    font-size:1.05rem;
+  }
+
+  .valores{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+
+  .valor-card{
+    background: var(--creme);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    border-top: 4px solid var(--rosa);
+  }
+
+  .valor-card h3{
+    font-size:1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--texto);
+  }
+
+  /* PROGRAMAS */
+  .programas{ background: var(--rosa-claro); }
+
+  .programas-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .programa-card{
+    background: var(--branco);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .programa-card .numero{
+    color: var(--rosa);
+    font-family:'Playfair Display', serif;
+    font-size:1.6rem;
+    font-weight:700;
+    margin-bottom:0.5rem;
+  }
+
+  /* IMPACTO */
+  .impacto{
+    background: var(--rosa);
+    color: var(--branco);
+    text-align:center;
+  }
+
+  .impacto-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap:2rem;
+    margin-top:2rem;
+  }
+
+  .impacto-grid .num{
+    font-family:'Playfair Display', serif;
+    font-size:2.6rem;
+    font-weight:700;
+  }
+
+  /* CONTATO */
+  .contato{
+    display:flex;
+    gap:3rem;
+    flex-wrap:wrap;
+  }
+
+  .contato-info{ flex:1; min-width:280px; }
+
+  .contato-info p{ margin-bottom:0.8rem; }
+
+  .contato-cta{
+    flex:1;
+    min-width:280px;
+    background: var(--branco);
+    border-radius:16px;
+    padding:2.5rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    text-align:center;
+  }
+
+  .contato-cta h3{
+    color: var(--rosa);
+    margin-bottom:1rem;
+  }
+
+  .contato-cta p{ margin-bottom:1.5rem; }
+
+  /* FOOTER */
+  footer{
+    background: var(--texto);
+    color: var(--branco);
+    text-align:center;
+    padding: 2rem 6%;
+    font-size:0.9rem;
+  }
+
+  footer a{ color: var(--rosa-claro); }
+
+  @media (max-width: 720px){
+    nav ul{ display:none; }
+    .hero{ flex-direction:column; text-align:center; }
+    .hero-texto p{ margin-left:auto; margin-right:auto; }
+    .hero-img .circulo{ width:240px; height:240px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span></span> Instituto Elo Rosa</div>
+  <nav>
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#missao">Missão</a></li>
+      <li><a href="#programas">Programas</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+  <a href="#contato" class="btn">Quero ajudar</a>
+</header>
+
+<section class="hero">
+  <div class="hero-texto">
+    <h1>Um elo de apoio para cada mulher</h1>
+    <p>O Instituto Elo Rosa acolhe, orienta e fortalece mulheres em tratamento contra o câncer de mama, criando uma rede de cuidado que ninguém enfrenta sozinha.</p>
+    <a href="#programas" class="btn">Conheça nossos programas</a>
+  </div>
+  <div class="hero-img">
+    <div class="circulo">Acolhimento<br>Informação<br>Esperança</div>
+  </div>
+</section>
+
+<section class="sobre" id="sobre">
+  <div class="sobre-texto">
+    <h2>Quem somos</h2>
+    <p>Somos uma organização sem fins lucrativos dedicada a apoiar mulheres e famílias impactadas pelo câncer de mama. Desde a nossa fundação, unimos voluntários, profissionais de saúde e parceiros para oferecer suporte emocional, informação de qualidade e acesso a recursos essenciais durante o tratamento e a recuperação.</p>
+  </div>
+</section>
+
+<section class="missao" id="missao">
+  <h2>Nossos valores</h2>
+  <p>Acreditamos que o cuidado vai além do tratamento médico. Por isso, trabalhamos com base em três pilares que guiam cada ação do instituto.</p>
+  <div class="valores">
+    <div class="valor-card">
+      <h3>Acolhimento</h3>
+      <p>Um espaço seguro para ouvir, apoiar e caminhar junto em cada etapa da jornada.</p>
+    </div>
+    <div class="valor-card">
+      <h3>Informação</h3>
+      <p>Conteúdo confiável sobre prevenção, diagnóstico e tratamento, ao alcance de todas.</p>
+    </div>
+    <div class="valor-card">
+      <h3>Comunidade</h3>
+      <p>Uma rede de apoio entre pacientes, familiares e voluntários que fortalece a todos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="programas" id="programas">
+  <h2>O que fazemos</h2>
+  <div class="programas-grid">
+    <div class="programa-card">
+      <div class="numero">01</div>
+      <h3>Grupos de apoio</h3>
+      <p>Encontros periódicos para troca de experiências entre pacientes e sobreviventes.</p>
+    </div>
+    <div class="programa-card">
+      <div class="numero">02</div>
+      <h3>Orientação e informação</h3>
+      <p>Palestras e materiais educativos sobre prevenção e direitos da paciente oncológica.</p>
+    </div>
+    <div class="programa-card">
+      <div class="numero">03</div>
+      <h3>Apoio prático</h3>
+      <p>Auxílio com transporte, perucas, próteses e outras necessidades do dia a dia.</p>
+    </div>
+  </div>
+</section>
+
+<section class="impacto">
+  <h2>Nosso impacto</h2>
+  <div class="impacto-grid">
+    <div>
+      <div class="num">+500</div>
+      <p>mulheres acolhidas</p>
+    </div>
+    <div>
+      <div class="num">+80</div>
+      <p>voluntários ativos</p>
+    </div>
+    <div>
+      <div class="num">+120</div>
+      <p>encontros realizados</p>
+    </div>
+  </div>
+</section>
+
+<section class="contato" id="contato">
+  <div class="contato-info">
+    <h2>Fale conosco</h2>
+    <p><strong>E-mail:</strong> contato@institutoelorosa.org.br</p>
+    <p><strong>Telefone:</strong> (00) 0000-0000</p>
+    <p><strong>Endereço:</strong> Rua Exemplo, 123 — Sua Cidade, UF</p>
+  </div>
+  <div class="contato-cta">
+    <h3>Faça parte dessa rede</h3>
+    <p>Seja como voluntária, doadora ou parceira, sua ajuda fortalece essa corrente de apoio.</p>
+    <a href="mailto:contato@institutoelorosa.org.br" class="btn">Quero ajudar</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Instituto Elo Rosa. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>
