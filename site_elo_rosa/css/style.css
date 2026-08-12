@@ -7,8 +7,8 @@
   --pink-deep:#B96A85;
   --green:#7C9A78;
   --line:rgba(58,46,40,.12);
-  --wood:#5C4636;
-  --wood-dark:#4A3728;
+  --wood:#2E2140;
+  --wood-dark:#221732;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -38,7 +38,15 @@ a{color:inherit;text-decoration:none;}
   border-bottom:1px solid rgba(217,139,163,.3);
   box-shadow:0 6px 20px rgba(58,46,40,.15);
 }
-.nav .word{font-family:'Fraunces',serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;color:var(--cream);}
+.nav .word{
+  font-family:'Fraunces',serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;color:var(--cream);
+  display:flex;align-items:center;gap:8px;
+}
+.nav .word .mark{
+  width:18px;height:18px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.nav .word .mark svg{width:100%;height:100%;}
 .nav .links{display:flex;gap:30px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;}
 .nav .links a{opacity:.85;color:var(--cream);transition:opacity .2s, color .2s;}
 .nav .links a:hover{opacity:1;color:var(--pink);}
@@ -83,10 +91,11 @@ a{color:inherit;text-decoration:none;}
   position:absolute;inset:0;
   background-image:url('../images/hero.jpg');
   background-size:cover;background-position:center 38%;
+  filter:saturate(0.62) brightness(0.85);
 }
 .hero-bg::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(58,46,40,.15) 0%, rgba(58,46,40,.05) 35%, rgba(45,32,26,.82) 100%);
+  background:linear-gradient(180deg, rgba(30,20,20,.4) 0%, rgba(30,20,20,.28) 32%, rgba(20,13,13,.88) 100%);
 }
 .hero-inner{
   position:relative;z-index:2;
@@ -99,9 +108,10 @@ a{color:inherit;text-decoration:none;}
   font-weight:600;margin-bottom:16px;display:block;
 }
 .hero-copy h1{
-  font-size:clamp(38px,6vw,66px);
-  font-weight:500;line-height:1.08;letter-spacing:-0.01em;
+  font-size:clamp(52px,8.5vw,96px);
+  font-weight:500;line-height:1.04;letter-spacing:-0.015em;
   color:var(--cream);
+  text-shadow:0 4px 24px rgba(0,0,0,.35);
 }
 .hero-copy p{
   margin-top:20px;font-size:15.5px;line-height:1.75;color:rgba(247,241,234,.82);
