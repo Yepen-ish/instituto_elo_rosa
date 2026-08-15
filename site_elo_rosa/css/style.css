@@ -173,7 +173,13 @@ a{color:inherit;text-decoration:none;}
   display:flex;justify-content:space-between;align-items:center;
 }
 .peek .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
-.peek .num{font-family:'Fraunces',serif;font-weight:700;font-size:14px;}
+.peek .peek-btn{
+  background:#3A2028;color:var(--cream);
+  padding:8px 20px;border-radius:20px;
+  font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  transition:background .2s;
+}
+.peek .peek-btn:hover{background:var(--wood-dark);}
 
 /* ---------- SECTION SHELL ---------- */
 section{padding:120px 6vw;position:relative;}
