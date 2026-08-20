@@ -1,31 +1,58 @@
+/* ==========================================================================
+   INSTITUTO ELO ROSA — FOLHA DE ESTILOS PRINCIPAL
+   Paleta: tons terrosos/creme + rosa suave + verde, com seções escuras
+   (madeira/roxo) para dar contraste ao herói, CTA e rodapé.
+   ========================================================================== */
+
+/* ##########################################################################
+   MÓDULO 1 — PÁGINA INICIAL (HOME)
+   Este módulo contém TODOS os estilos da página inicial do site:
+   menu de navegação, botão flutuante de contato, seção herói (banner topo),
+   seção "quem somos", seções de propósito/loja, seção de chamada (CTA)
+   e o rodapé (footer) com a flor decorativa e os contatos.
+   ########################################################################## */
+
+/* Variáveis de cor reutilizadas em todo o site (facilita trocar a paleta) */
 :root{
-  --cream:#F7F1EA;
-  --cream-deep:#EDE2D4;
-  --ink:#3A2E28;
-  --ink-soft:rgba(58,46,40,.66);
-  --pink:#D98BA3;
-  --pink-deep:#B96A85;
-  --green:#7C9A78;
-  --line:rgba(58,46,40,.12);
-  --wood:#2E2140;
-  --wood-dark:#221732;
-  --purple-accent:#6B3F94;
+  --cream:#F7F1EA;                    /* fundo claro principal */
+  --cream-deep:#EDE2D4;               /* fundo levemente mais escuro (cards) */
+  --ink:#3A2E28;                      /* cor do texto principal */
+  --ink-soft:rgba(58,46,40,.66);      /* texto secundário, mais suave */
+  --pink:#D98BA3;                     /* rosa de destaque (botões, links) */
+  --pink-deep:#B96A85;                /* rosa mais escuro (hover) */
+  --green:#7C9A78;                    /* verde de apoio (eyebrows de seção) */
+  --line:rgba(58,46,40,.12);          /* linhas divisórias sutis */
+  --wood:#2E2140;                     /* roxo escuro (topo do gradiente) */
+  --wood-dark:#221732;                /* roxo ainda mais escuro (base do gradiente) */
+  --purple-accent:#6B3F94;            /* roxo de destaque em textos */
 }
+
+/* Reset básico: remove margens/paddings padrão do navegador */
 *{margin:0;padding:0;box-sizing:border-box;}
+
+/* Rolagem suave ao clicar em âncoras (ex: menu -> seção) */
 html{scroll-behavior:smooth;}
+
+/* Esconde a barra de rolagem visualmente, mantendo a rolagem funcional */
 html,body{ scrollbar-width:none; -ms-overflow-style:none; }
 body::-webkit-scrollbar, html::-webkit-scrollbar{ display:none; width:0; height:0; }
+
 body{
   background:var(--cream);
   color:var(--ink);
-  font-family:'Work Sans',sans-serif;
-  overflow-x:hidden;
-  padding-top:58px;
+  font-family:'Work Sans',sans-serif;  /* fonte padrão do corpo do texto */
+  overflow-x:hidden;                   /* evita rolagem horizontal indesejada */
+  padding-top:58px;                    /* compensa a altura do menu fixo (.nav) */
 }
+
+/* Títulos usam a fonte serifada (mais editorial/elegante) */
 h1,h2,h3,.display{font-family:'Fraunces',serif;}
 a{color:inherit;text-decoration:none;}
 
-/* ---------- NAV ---------- */
+/* --------------------------------------------------------------------------
+   1.1 — MENU DE NAVEGAÇÃO (topo fixo)
+   Barra fixa no topo da tela com logo, links de âncora e botão "quero ajudar".
+   -------------------------------------------------------------------------- */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:50;
   height:58px;
@@ -61,7 +88,11 @@ a{color:inherit;text-decoration:none;}
 .nav .help-btn:hover{background:var(--pink-deep);}
 @media(max-width:760px){ .nav .links{display:none;} .nav .help-btn{padding:8px 16px;font-size:11px;} }
 
-/* ---------- floating contact circle ---------- */
+/* --------------------------------------------------------------------------
+   1.2 — BOTÃO FLUTUANTE DE CONTATO (círculo com ícone de telefone)
+   Fica fixo no canto inferior direito da tela; aparece com fade ao rolar
+   (a lógica de mostrar/esconder fica no script.js).
+   -------------------------------------------------------------------------- */
 .contact-fab{
   position:fixed;right:28px;bottom:32px;z-index:60;
   width:58px;height:58px;border-radius:50%;
@@ -75,7 +106,9 @@ a{color:inherit;text-decoration:none;}
 .contact-fab svg{width:24px;height:24px;stroke:#3A2028;}
 @media(max-width:760px){ .contact-fab{width:50px;height:50px;right:18px;bottom:20px;} }
 
-/* ---------- HERO ---------- */
+/* --------------------------------------------------------------------------
+   1.3 — SEÇÃO HERÓI (banner principal do topo, com imagem de fundo)
+   -------------------------------------------------------------------------- */
 .hero{
   position:relative;
   height:88vh;
@@ -164,7 +197,9 @@ a{color:inherit;text-decoration:none;}
   50%{transform:translateY(8px);opacity:1;}
 }
 
-/* peek strip */
+/* --------------------------------------------------------------------------
+   1.4 — FAIXA "PEEK" (tira rosa logo abaixo do herói, com prévia da próxima seção)
+   -------------------------------------------------------------------------- */
 .peek{
   position:relative;z-index:2;
   background:var(--pink);
@@ -181,14 +216,18 @@ a{color:inherit;text-decoration:none;}
 }
 .peek .peek-btn:hover{background:var(--wood-dark);}
 
-/* ---------- SECTION SHELL ---------- */
+/* --------------------------------------------------------------------------
+   1.5 — ESTRUTURA GERAL DAS SEÇÕES (espaçamento padrão + cabeçalho de seção)
+   -------------------------------------------------------------------------- */
 section{padding:120px 6vw;position:relative;}
 .section-head{max-width:640px;margin-bottom:64px;}
 .section-head .eyebrow{color:var(--green);}
 .section-head h2{font-size:clamp(32px,4.5vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.01em;}
 .section-head p{margin-top:16px;color:var(--ink-soft);line-height:1.75;font-size:15px;max-width:480px;}
 
-/* ---------- MISSION GRID ---------- */
+/* --------------------------------------------------------------------------
+   1.6 — GRADE DE MISSÃO/VISÃO/PROPÓSITO ("quem somos")
+   -------------------------------------------------------------------------- */
 .mission-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
   background:var(--line);
@@ -206,7 +245,9 @@ section{padding:120px 6vw;position:relative;}
 @media(max-width:900px){ .mission-grid.three-col{grid-template-columns:repeat(2,1fr);} }
 @media(max-width:600px){ .mission-grid.three-col{grid-template-columns:1fr;} }
 
-/* ---------- VALUES / PROJECT TAG LIST ---------- */
+/* --------------------------------------------------------------------------
+   1.7a — LISTA DE VALORES/TAGS (reutilizável, ex: lista de projetos)
+   -------------------------------------------------------------------------- */
 .values{background:var(--cream-deep);}
 .values-list{
   display:flex;flex-wrap:wrap;gap:12px;
@@ -235,7 +276,10 @@ section{padding:120px 6vw;position:relative;}
 .story-content h2{font-size:clamp(28px,4.5vw,44px);font-weight:500;line-height:1.3;color:var(--ink);}
 .story-content h2 em{color:var(--purple-accent);font-style:italic;}
 
-/* ---------- SUPPORTERS / EVENTS ---------- */
+/* --------------------------------------------------------------------------
+   1.7b — CARDS DE APOIADORES/EVENTOS (não usados na home atual, mas mantidos
+   caso a seção volte a ser exibida futuramente)
+   -------------------------------------------------------------------------- */
 .supporters{background:var(--cream-deep);}
 .support-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;
@@ -253,7 +297,9 @@ section{padding:120px 6vw;position:relative;}
 .support-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
 .support-card .event-date{font-size:12px;color:var(--pink-deep);margin-top:auto;letter-spacing:.04em;}
 
-/* ---------- CTA ---------- */
+/* --------------------------------------------------------------------------
+   1.7c — SEÇÃO DE CHAMADA FINAL (CTA) "seja o elo de alguém"
+   -------------------------------------------------------------------------- */
 .cta{
   text-align:center;padding:140px 6vw;
   background:linear-gradient(180deg, var(--wood) 0%, var(--wood-dark) 100%);
@@ -270,43 +316,159 @@ section{padding:120px 6vw;position:relative;}
 }
 .cta .btn:hover{background:var(--pink-deep);}
 
-/* ---------- FOOTER ---------- */
+/* --------------------------------------------------------------------------
+   1.8 — RODAPÉ (FOOTER)
+   Estrutura em GRID de 3 colunas:
+   [ coluna esquerda (reservada) ] [ coluna central (flor) ] [ coluna direita (contatos) ]
+   Proporção pedida "0.75/3 | X | 0.75/3" equivale, simplificada, a 1fr / 2fr / 1fr
+   -------------------------------------------------------------------------- */
+
+/* Contêiner externo do rodapé: define o fundo escuro e o espaçamento geral */
 footer{
-  display:flex;flex-direction:column;align-items:center;
   padding:56px 6vw 28px;
   background:var(--wood-dark);
   border-top:1px solid rgba(247,241,234,.12);
 }
-.footer-flower{
-  width:150px;
-  max-width:40vw;
-  margin:0 auto 24px;
-  opacity:.94;
+
+/* Grid principal com as 3 colunas descritas acima */
+.footer-grid{
+  display:grid;
+  grid-template-columns: 1fr 2fr 1fr;  /* esquerda 25% | centro 50% | direita 25% (proporção 0.75|1.5|0.75) */
+  align-items:center;
+  gap:24px;
+  max-width:1200px;
+  margin:0 auto;
 }
+
+/* COLUNA ESQUERDA — reservada para uso futuro (ex: logo, endereço, selo institucional).
+   Por enquanto fica vazia, apenas garantindo o equilíbrio visual do grid. */
+.footer-col-left{
+  min-height:1px; /* evita a coluna colapsar visualmente */
+}
+
+/* COLUNA CENTRAL — moldura da ilustração da flor (SVG) */
+.footer-col-center{
+  display:flex;
+  justify-content:center;
+}
+.footer-flower{
+  width:420px;           /* flor ampliada (aumento acumulado sobre as versões anteriores) */
+  max-width:80vw;        /* nunca ultrapassa 80% da largura da tela em telas estreitas */
+  opacity:.94;           /* leve transparência para suavizar contra o fundo escuro */
+}
+/* O SVG sempre ocupa 100% do contêiner pai, mantendo a proporção original do desenho */
 .footer-flower svg{
   width:100%;
   height:auto;
   display:block;
-  overflow:visible;
+  overflow:visible;      /* evita cortar pétalas que ultrapassem levemente o viewBox */
 }
+
+/* COLUNA DIREITA — nome do instituto + lista de contatos/redes sociais */
+.footer-col-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;   /* alinha tudo à direita da coluna */
+  gap:14px;
+  text-align:right;
+}
+
+/* Nome "Elo Rosa" em destaque, branco vivo, no topo da coluna de contatos */
+.footer-brand-name{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:20px;
+  color:#FFFFFF;         /* branco vivo, conforme solicitado */
+  letter-spacing:-0.01em;
+}
+
+/* Lista de contatos (ícones + link) */
+.footer-contacts{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:10px;
+  list-style:none;
+}
+.footer-contacts li{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+/* Botão/link de cada contato: ícone + rótulo, sem sublinhado, com hover suave */
+.footer-contacts a,
+.footer-contacts button{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-family:'Work Sans',sans-serif;
+  font-size:12.5px;
+  color:rgba(247,241,234,.75);
+  transition:color .2s;
+}
+.footer-contacts a:hover,
+.footer-contacts button:hover{
+  color:var(--pink);
+}
+/* Ícones (SVG) dos contatos: tamanho e cor padronizados */
+.footer-contacts svg{
+  width:18px;
+  height:18px;
+  stroke:currentColor;
+  fill:none;
+  flex-shrink:0;
+}
+/* Pequeno aviso visual (ex: "copiado!") ao copiar e-mail/telefone */
+.footer-copy-hint{
+  font-size:10.5px;
+  color:var(--pink);
+  opacity:0;
+  transition:opacity .3s;
+}
+.footer-copy-hint.show{opacity:1;}
+
+/* Linha inferior do rodapé: copyright à esquerda, slogan à direita */
 .footer-bottom{
   width:100%;
+  max-width:1200px;
+  margin:40px auto 0;
   display:flex;justify-content:space-between;align-items:center;
   font-size:12px;color:rgba(247,241,234,.55);
 }
-@media(max-width:760px){
+
+/* Ajustes para telas pequenas (celulares): empilha as 3 colunas verticalmente */
+@media(max-width:900px){
+  .footer-grid{
+    grid-template-columns:1fr;   /* uma coluna só */
+    justify-items:center;
+    text-align:center;
+  }
+  .footer-col-left{display:none;}                 /* coluna reservada some no mobile */
+  .footer-col-right{align-items:center;text-align:center;}
+  .footer-contacts{align-items:center;}
+  .footer-contacts a, .footer-contacts button{justify-content:center;}
+  .footer-flower{width:260px;}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
-  .footer-flower{width:120px;}
 }
 
-/* reveal on scroll */
+/* --------------------------------------------------------------------------
+   1.9 — ANIMAÇÃO "REVEAL" (elementos aparecem suavemente ao entrar na tela)
+   A classe .in é adicionada via JavaScript (script.js) usando IntersectionObserver
+   -------------------------------------------------------------------------- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 
+/* Respeita a preferência do usuário por menos movimento/animação (acessibilidade) */
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
 }
 
+/* --------------------------------------------------------------------------
+   1.10 — AJUSTES RESPONSIVOS GERAIS (telas de celular)
+   -------------------------------------------------------------------------- */
 @media(max-width:760px){
   section{padding:80px 6vw;}
   .hero{height:82vh;}
