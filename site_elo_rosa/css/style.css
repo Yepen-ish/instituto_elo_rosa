@@ -332,7 +332,9 @@ footer{
   overflow:visible;
 }
 
-/* Grid principal com as 3 colunas descritas acima */
+/* Grid principal com as 3 colunas descritas acima.
+   As divisórias verticais (linhas finas) ficam entre as colunas, criando
+   visualmente as "3 seções": ícones | logo | políticas. */
 .footer-grid{
   display:grid;
   grid-template-columns: 1fr 2fr 1fr;  /* esquerda 25% | centro 50% | direita 25% (proporção 0.75|1.5|0.75) */
@@ -343,32 +345,46 @@ footer{
   overflow:visible;
 }
 
-/* COLUNA ESQUERDA — reservada para uso futuro (ex: logo, endereço, selo institucional).
-   Por enquanto fica vazia, apenas garantindo o equilíbrio visual do grid. */
+/* Linha vertical divisória — usada duas vezes (corte esquerdo e corte direito) */
+.footer-col-left,
+.footer-col-right{
+  position:relative;
+}
+.footer-col-left::after,
+.footer-col-right::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:1px;
+  height:70%;
+  background:rgba(247,241,234,.14);
+  transform:translateY(-50%);
+}
+.footer-col-left::after{ right:-12px; }   /* corte entre coluna esquerda e central */
+.footer-col-right::before{ left:-12px; } /* corte entre coluna central e direita */
+
+/* COLUNA ESQUERDA — ícones de contato, empilhados de cima para baixo */
 .footer-col-left{
-  min-height:1px; /* evita a coluna colapsar visualmente */
+  display:flex;
+  justify-content:center;
 }
 
-/* COLUNA CENTRAL — moldura da ilustração da flor (SVG).
-   overflow:visible em toda a cadeia de elementos evita que qualquer pétala
-   seja cortada pelas bordas do grid ou do contêiner pai. */
+/* COLUNA CENTRAL — logo do instituto (substitui a antiga ilustração da flor) */
 .footer-col-center{
   display:flex;
   justify-content:center;
   overflow:visible;
 }
-.footer-flower{
-  width:420px;           /* flor ampliada (aumento acumulado sobre as versões anteriores) */
-  max-width:80vw;        /* nunca ultrapassa 80% da largura da tela em telas estreitas */
-  opacity:1;              /* flor 100% opaca — nenhuma parte "apagada" */
-  overflow:visible;
+.footer-logo{
+  width:180px;            /* tamanho da logo no rodapé */
+  max-width:40vw;
+  opacity:1;
 }
-/* O SVG sempre ocupa 100% do contêiner pai, mantendo a proporção original do desenho */
-.footer-flower svg{
+.footer-logo img{
   width:100%;
   height:auto;
   display:block;
-  overflow:visible;      /* NUNCA corta partes do desenho (pétalas, estames etc.) */
+  border-radius:50%;      /* a logo original é circular (ver .nav .word .mark) */
 }
 
 /* COLUNA DIREITA — nome do instituto + ícones de contato + links institucionais */
@@ -391,19 +407,20 @@ footer{
 }
 
 /* --------------------------------------------------------------------------
-   1.8a — LINHA DE ÍCONES DE CONTATO/REDES SOCIAIS
-   Ficam unidos em uma única linha horizontal, à direita, com espaçamento
-   pequeno entre eles. Cada ícone usa a cor oficial da respectiva marca,
-   escolhida para continuar legível sobre o roxo escuro do rodapé.
+   1.8a — COLUNA DE ÍCONES DE CONTATO/REDES SOCIAIS
+   Ficam empilhados de cima para baixo, à esquerda, com espaçamento pequeno
+   entre eles. Cada ícone usa a cor oficial da respectiva marca, escolhida
+   para continuar legível sobre o roxo escuro do rodapé.
    -------------------------------------------------------------------------- */
-.footer-social-row{
+.footer-social-col{
   display:flex;
+  flex-direction:column;   /* empilhados de cima para baixo, conforme pedido */
   align-items:center;
-  gap:14px;              /* espaçamento pequeno entre os ícones, conforme pedido */
+  gap:12px;                /* espaçamento pequeno entre os ícones */
   list-style:none;
 }
-.footer-social-row a,
-.footer-social-row button{
+.footer-social-col a,
+.footer-social-col button{
   display:flex;
   align-items:center;
   justify-content:center;
@@ -414,16 +431,17 @@ footer{
   cursor:pointer;
   transition:background .2s, transform .2s;
 }
-.footer-social-row a:hover,
-.footer-social-row button:hover{
+.footer-social-col a:hover,
+.footer-social-col button:hover{
   background:rgba(255,255,255,.14);
   transform:translateY(-2px);
 }
-.footer-social-row svg{
+.footer-social-col svg{
   width:17px;
   height:17px;
   flex-shrink:0;
 }
+.footer-social-col li{ position:relative; }
 /* Cor individual de cada ícone (fill), combinando com a marca de origem
    mas mantendo contraste agradável sobre o fundo roxo escuro */
 .icon-youtube   { fill:#FF3B30; }              /* vermelho YouTube */
@@ -433,10 +451,14 @@ footer{
 .icon-phone     { fill:#5B9BF0; }              /* azul para telefone */
 .icon-pix       { fill:#32BCAD; }              /* verde-azulado característico do Pix */
 
-/* Pequeno aviso visual (ex: "copiado!") ao copiar e-mail/telefone */
+/* Pequeno aviso visual (ex: "copiado!") ao copiar e-mail/telefone.
+   Como a coluna agora fica à esquerda, o aviso aparece ao lado direito do ícone. */
 .footer-copy-hint{
   position:absolute;
-  margin-top:44px;
+  left:44px;
+  top:50%;
+  transform:translateY(-50%);
+  margin-top:0;
   font-size:10px;
   color:var(--pink);
   opacity:0;
@@ -444,7 +466,6 @@ footer{
   white-space:nowrap;
 }
 .footer-copy-hint.show{opacity:1;}
-.footer-social-row li{position:relative;}
 
 /* --------------------------------------------------------------------------
    1.8b — LISTA DE LINKS INSTITUCIONAIS (políticas)
@@ -481,12 +502,15 @@ footer{
     grid-template-columns:1fr;   /* uma coluna só */
     justify-items:center;
     text-align:center;
+    gap:32px;
   }
-  .footer-col-left{display:none;}                 /* coluna reservada some no mobile */
+  .footer-col-left::after,
+  .footer-col-right::before{ display:none; }  /* linhas divisórias somem no mobile (empilhado) */
   .footer-col-right{align-items:center;text-align:center;}
-  .footer-social-row{justify-content:center;}
+  .footer-social-col{flex-direction:row;flex-wrap:wrap;justify-content:center;}
+  .footer-copy-hint{ left:50%; top:100%; transform:translateX(-50%); margin-top:4px; }
   .footer-policies{align-items:center;}
-  .footer-flower{width:280px;}
+  .footer-logo{width:120px;}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
 }
 
