@@ -145,85 +145,9 @@
     <!-- Coluna esquerda: reservada para uso futuro (logo, endereço, selo etc.) -->
     <div class="footer-col-left"></div>
 
-    <!-- Coluna central: ilustração da flor.
-         Pétalas distribuídas simetricamente a cada 36° (10 pétalas, alternando
-         dois tons de rosa) para que NENHUMA parte do círculo fique com lacuna.
-         Estames desenhados por cima, em tom claro, para ficarem sempre visíveis. -->
-    <div class="footer-col-center">
-      <div class="footer-flower" aria-hidden="true">
-        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-          <defs>
-            <linearGradient id="petalA" x1="0%" y1="100%" x2="0%" y2="0%">
-              <stop offset="0%" stop-color="#dba9c2"/>
-              <stop offset="100%" stop-color="#fbeef3"/>
-            </linearGradient>
-            <linearGradient id="petalB" x1="0%" y1="100%" x2="0%" y2="0%">
-              <stop offset="0%" stop-color="#e9c2d4"/>
-              <stop offset="100%" stop-color="#fff8fa"/>
-            </linearGradient>
-          </defs>
-
-          <!-- 10 pétalas, uma a cada 36°, alternando as duas cores acima.
-               O caminho de cada pétala nasce no centro (200,200) e vai até a ponta,
-               garantindo que todas se encontrem no meio sem deixar vãos. -->
-          <g>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(0 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(36 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(72 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(108 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(144 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(180 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(216 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(252 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(288 200 200)"/>
-            <path d="M200,200 C 178,150 172,95 200,38 C 228,95 222,150 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1.2" transform="rotate(324 200 200)"/>
-          </g>
-
-          <!-- 6 pétalas internas, menores, para preencher qualquer vão perto do centro -->
-          <g opacity="0.95">
-            <path d="M200,200 C 190,175 187,150 200,120 C 213,150 210,175 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1" transform="rotate(18 200 200)"/>
-            <path d="M200,200 C 190,175 187,150 200,120 C 213,150 210,175 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1" transform="rotate(78 200 200)"/>
-            <path d="M200,200 C 190,175 187,150 200,120 C 213,150 210,175 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1" transform="rotate(138 200 200)"/>
-            <path d="M200,200 C 190,175 187,150 200,120 C 213,150 210,175 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1" transform="rotate(198 200 200)"/>
-            <path d="M200,200 C 190,175 187,150 200,120 C 213,150 210,175 200,200 Z" fill="url(#petalB)" stroke="#fdf3f7" stroke-width="1" transform="rotate(258 200 200)"/>
-            <path d="M200,200 C 190,175 187,150 200,120 C 213,150 210,175 200,200 Z" fill="url(#petalA)" stroke="#fdf3f7" stroke-width="1" transform="rotate(318 200 200)"/>
-          </g>
-
-          <!-- Centro (pistilo) -->
-          <ellipse cx="200" cy="200" rx="20" ry="26" fill="#c9557f"/>
-
-          <!-- Estames: filamentos + anteras, em tom claro para nunca "sumir" contra as pétalas -->
-          <g stroke="#8a3f5c" stroke-width="1.6" fill="none">
-            <path d="M200 200 Q 210 165, 232 138"/>
-            <path d="M200 200 Q 225 175, 250 158"/>
-            <path d="M200 200 Q 232 200, 258 198"/>
-            <path d="M200 200 Q 225 222, 248 240"/>
-            <path d="M200 200 Q 200 232, 205 260"/>
-            <path d="M200 200 Q 175 222, 152 240"/>
-            <path d="M200 200 Q 168 200, 142 198"/>
-            <path d="M200 200 Q 175 175, 150 158"/>
-          </g>
-          <g fill="#f6dbe6" stroke="#8a3f5c" stroke-width="1">
-            <ellipse cx="234" cy="135" rx="7" ry="4" transform="rotate(-35 234 135)"/>
-            <ellipse cx="252" cy="156" rx="7" ry="4" transform="rotate(-20 252 156)"/>
-            <ellipse cx="260" cy="197" rx="7" ry="4" transform="rotate(0 260 197)"/>
-            <ellipse cx="250" cy="242" rx="7" ry="4" transform="rotate(35 250 242)"/>
-            <ellipse cx="207" cy="263" rx="7" ry="4" transform="rotate(80 207 263)"/>
-            <ellipse cx="150" cy="242" rx="7" ry="4" transform="rotate(-35 150 242)"/>
-            <ellipse cx="140" cy="197" rx="7" ry="4" transform="rotate(0 140 197)"/>
-            <ellipse cx="148" cy="156" rx="7" ry="4" transform="rotate(20 148 156)"/>
-          </g>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Coluna direita: nome do instituto + ícones de contato (linha única, coloridos)
-         + lista de links institucionais (políticas) -->
-    <div class="footer-col-right">
-      <span class="footer-brand-name">Instituto Elo Rosa</span>
-
-      <!-- 1.8a — ícones de contato/redes sociais, unidos em linha, cores de marca -->
-      <ul class="footer-social-row">
+    <!-- Coluna esquerda: ícones de contato/redes sociais, empilhados de cima para baixo -->
+    <div class="footer-col-left">
+      <ul class="footer-social-col">
 
         <!-- YouTube (vermelho) → canal/página da polícia (denúncia).
              Substituir o href pelo link definitivo quando disponível. -->
@@ -274,8 +198,21 @@
         </li>
 
       </ul>
+    </div>
 
-      <!-- 1.8b — links institucionais (políticas) -->
+    <!-- Coluna central: logo do instituto (substitui a antiga ilustração da flor) -->
+    <div class="footer-col-center">
+      <div class="footer-logo">
+        <img src="site_elo_rosa/images/logo.jpeg" alt="Logo do Instituto Elo Rosa">
+      </div>
+    </div>
+
+
+    <!-- Coluna direita: nome do instituto + lista de links institucionais (políticas) -->
+    <div class="footer-col-right">
+      <span class="footer-brand-name">Instituto Elo Rosa</span>
+
+      <!-- links institucionais (políticas) -->
       <ul class="footer-policies">
         <!-- Transparência: leva a uma página própria, ainda em branco -->
         <li><a href="#">Transparência</a></li>
