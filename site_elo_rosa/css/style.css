@@ -22,8 +22,8 @@
   --pink-deep:#B96A85;                /* rosa mais escuro (hover) */
   --green:#7C9A78;                    /* verde de apoio (eyebrows de seção) */
   --line:rgba(58,46,40,.12);          /* linhas divisórias sutis */
-  --wood:#2E2140;                     /* roxo escuro (topo do gradiente) */
-  --wood-dark:#221732;                /* roxo ainda mais escuro (base do gradiente) */
+  --wood:#221830;                     /* roxo escuro (topo do gradiente) — escurecido */
+  --wood-dark:#160F20;                /* roxo ainda mais escuro (base do gradiente) — escurecido */
   --purple-accent:#6B3F94;            /* roxo de destaque em textos */
 }
 
@@ -319,15 +319,17 @@ section{padding:120px 6vw;position:relative;}
 /* --------------------------------------------------------------------------
    1.8 — RODAPÉ (FOOTER)
    Estrutura em GRID de 3 colunas:
-   [ coluna esquerda (reservada) ] [ coluna central (flor) ] [ coluna direita (contatos) ]
+   [ coluna esquerda (reservada) ] [ coluna central (flor) ] [ coluna direita (contatos + políticas) ]
    Proporção pedida "0.75/3 | X | 0.75/3" equivale, simplificada, a 1fr / 2fr / 1fr
    -------------------------------------------------------------------------- */
 
-/* Contêiner externo do rodapé: define o fundo escuro e o espaçamento geral */
+/* Contêiner externo do rodapé: define o fundo escuro e o espaçamento geral.
+   overflow:visible garante que NENHUMA pétala da flor seja cortada nas bordas. */
 footer{
-  padding:56px 6vw 28px;
+  padding:64px 6vw 28px;
   background:var(--wood-dark);
-  border-top:1px solid rgba(247,241,234,.12);
+  border-top:1px solid rgba(247,241,234,.10);
+  overflow:visible;
 }
 
 /* Grid principal com as 3 colunas descritas acima */
@@ -338,6 +340,7 @@ footer{
   gap:24px;
   max-width:1200px;
   margin:0 auto;
+  overflow:visible;
 }
 
 /* COLUNA ESQUERDA — reservada para uso futuro (ex: logo, endereço, selo institucional).
@@ -346,89 +349,122 @@ footer{
   min-height:1px; /* evita a coluna colapsar visualmente */
 }
 
-/* COLUNA CENTRAL — moldura da ilustração da flor (SVG) */
+/* COLUNA CENTRAL — moldura da ilustração da flor (SVG).
+   overflow:visible em toda a cadeia de elementos evita que qualquer pétala
+   seja cortada pelas bordas do grid ou do contêiner pai. */
 .footer-col-center{
   display:flex;
   justify-content:center;
+  overflow:visible;
 }
 .footer-flower{
   width:420px;           /* flor ampliada (aumento acumulado sobre as versões anteriores) */
   max-width:80vw;        /* nunca ultrapassa 80% da largura da tela em telas estreitas */
-  opacity:.94;           /* leve transparência para suavizar contra o fundo escuro */
+  opacity:1;              /* flor 100% opaca — nenhuma parte "apagada" */
+  overflow:visible;
 }
 /* O SVG sempre ocupa 100% do contêiner pai, mantendo a proporção original do desenho */
 .footer-flower svg{
   width:100%;
   height:auto;
   display:block;
-  overflow:visible;      /* evita cortar pétalas que ultrapassem levemente o viewBox */
+  overflow:visible;      /* NUNCA corta partes do desenho (pétalas, estames etc.) */
 }
 
-/* COLUNA DIREITA — nome do instituto + lista de contatos/redes sociais */
+/* COLUNA DIREITA — nome do instituto + ícones de contato + links institucionais */
 .footer-col-right{
   display:flex;
   flex-direction:column;
   align-items:flex-end;   /* alinha tudo à direita da coluna */
-  gap:14px;
+  gap:16px;
   text-align:right;
 }
 
-/* Nome "Elo Rosa" em destaque, branco vivo, no topo da coluna de contatos */
+/* Nome "Instituto Elo Rosa" em destaque, branco vivo, no topo da coluna */
 .footer-brand-name{
   font-family:'Fraunces',serif;
   font-weight:700;
   font-size:20px;
   color:#FFFFFF;         /* branco vivo, conforme solicitado */
   letter-spacing:-0.01em;
+  line-height:1.2;
 }
 
-/* Lista de contatos (ícones + link) */
-.footer-contacts{
+/* --------------------------------------------------------------------------
+   1.8a — LINHA DE ÍCONES DE CONTATO/REDES SOCIAIS
+   Ficam unidos em uma única linha horizontal, à direita, com espaçamento
+   pequeno entre eles. Cada ícone usa a cor oficial da respectiva marca,
+   escolhida para continuar legível sobre o roxo escuro do rodapé.
+   -------------------------------------------------------------------------- */
+.footer-social-row{
   display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:10px;
+  align-items:center;
+  gap:14px;              /* espaçamento pequeno entre os ícones, conforme pedido */
   list-style:none;
 }
-.footer-contacts li{
+.footer-social-row a,
+.footer-social-row button{
   display:flex;
   align-items:center;
-  gap:8px;
-}
-/* Botão/link de cada contato: ícone + rótulo, sem sublinhado, com hover suave */
-.footer-contacts a,
-.footer-contacts button{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:none;
+  justify-content:center;
+  width:34px;height:34px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);  /* fundo sutil para destacar o ícone do roxo escuro */
   border:none;
   cursor:pointer;
-  font-family:'Work Sans',sans-serif;
-  font-size:12.5px;
-  color:rgba(247,241,234,.75);
-  transition:color .2s;
+  transition:background .2s, transform .2s;
 }
-.footer-contacts a:hover,
-.footer-contacts button:hover{
-  color:var(--pink);
+.footer-social-row a:hover,
+.footer-social-row button:hover{
+  background:rgba(255,255,255,.14);
+  transform:translateY(-2px);
 }
-/* Ícones (SVG) dos contatos: tamanho e cor padronizados */
-.footer-contacts svg{
-  width:18px;
-  height:18px;
-  stroke:currentColor;
-  fill:none;
+.footer-social-row svg{
+  width:17px;
+  height:17px;
   flex-shrink:0;
 }
+/* Cor individual de cada ícone (fill), combinando com a marca de origem
+   mas mantendo contraste agradável sobre o fundo roxo escuro */
+.icon-youtube   { fill:#FF3B30; }              /* vermelho YouTube */
+.icon-whatsapp  { fill:#D9A6E0; }              /* rosa-lilás para "comunidade" */
+.icon-instagram { fill:#E1306C; }              /* rosa/magenta característico do Instagram */
+.icon-gmail     { fill:#EA4335; }              /* vermelho característico do Gmail */
+.icon-phone     { fill:#5B9BF0; }              /* azul para telefone */
+.icon-pix       { fill:#32BCAD; }              /* verde-azulado característico do Pix */
+
 /* Pequeno aviso visual (ex: "copiado!") ao copiar e-mail/telefone */
 .footer-copy-hint{
-  font-size:10.5px;
+  position:absolute;
+  margin-top:44px;
+  font-size:10px;
   color:var(--pink);
   opacity:0;
   transition:opacity .3s;
+  white-space:nowrap;
 }
 .footer-copy-hint.show{opacity:1;}
+.footer-social-row li{position:relative;}
+
+/* --------------------------------------------------------------------------
+   1.8b — LISTA DE LINKS INSTITUCIONAIS (políticas)
+   Transparência / Trabalhe conosco / Políticas de privacidade / Regulamento
+   -------------------------------------------------------------------------- */
+.footer-policies{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:8px;
+  list-style:none;
+}
+.footer-policies a{
+  font-size:12px;
+  color:rgba(247,241,234,.6);
+  transition:color .2s;
+}
+.footer-policies a:hover{
+  color:var(--pink);
+}
 
 /* Linha inferior do rodapé: copyright à esquerda, slogan à direita */
 .footer-bottom{
@@ -436,7 +472,7 @@ footer{
   max-width:1200px;
   margin:40px auto 0;
   display:flex;justify-content:space-between;align-items:center;
-  font-size:12px;color:rgba(247,241,234,.55);
+  font-size:12px;color:rgba(247,241,234,.5);
 }
 
 /* Ajustes para telas pequenas (celulares): empilha as 3 colunas verticalmente */
@@ -448,9 +484,9 @@ footer{
   }
   .footer-col-left{display:none;}                 /* coluna reservada some no mobile */
   .footer-col-right{align-items:center;text-align:center;}
-  .footer-contacts{align-items:center;}
-  .footer-contacts a, .footer-contacts button{justify-content:center;}
-  .footer-flower{width:260px;}
+  .footer-social-row{justify-content:center;}
+  .footer-policies{align-items:center;}
+  .footer-flower{width:280px;}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
 }
 
