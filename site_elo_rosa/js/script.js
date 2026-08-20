@@ -35,9 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* --------------------------------------------------------------------
-     2) BOTÃO FLUTUANTE DE CONTATO
-     Some ele aparece (fade-in) somente depois que o usuário rola a
-     página além da altura do herói, evitando poluir a primeira tela.
+     2) BOTÃO FLUTUANTE DE CONTATO (ícone de telefone)
+     Regras de exibição:
+     - Some ele aparece (fade-in) somente depois que o usuário rola a
+       página além da altura do herói, evitando poluir a primeira tela;
+     - E desaparece novamente quando o usuário chega ao final da página
+       (rodapé, 100% do scroll), para não sobrepor os links/ícones do rodapé.
      -------------------------------------------------------------------- */
   var contactFab = document.getElementById('contactFab');
 
@@ -45,7 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var showThreshold = window.innerHeight * 0.6;
 
     var toggleFab = function () {
-      if (window.scrollY > showThreshold){
+      var scrollAtual = window.scrollY + window.innerHeight;
+      var alturaTotalPagina = document.documentElement.scrollHeight;
+
+      // Distância que falta para o fim absoluto da página (em pixels)
+      var distanciaDoFim = alturaTotalPagina - scrollAtual;
+
+      var passouDoHero = window.scrollY > showThreshold;
+      var chegouAoFim = distanciaDoFim <= 4; // pequena margem de tolerância
+
+      if (passouDoHero && !chegouAoFim){
         contactFab.classList.add('show');
       } else {
         contactFab.classList.remove('show');
@@ -53,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     window.addEventListener('scroll', toggleFab, { passive: true });
+    window.addEventListener('resize', toggleFab);
     toggleFab(); // checa o estado inicial ao carregar a página
   }
 
