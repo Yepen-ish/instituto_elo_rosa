@@ -123,7 +123,10 @@ a{color:inherit;text-decoration:none;}
 }
 .hero-bg .fill{
   position:absolute;inset:0;
-  background-image:url('../images/hero.jpg');
+  /* CONECTANDO O BACKGROUND: o arquivo real na pasta images é "hero.jpeg"
+     (conforme a estrutura de pastas do projeto) — antes estava apontando
+     para "hero.jpg", que não existe, por isso a imagem nunca aparecia. */
+  background-image:url('../images/hero.jpeg');
   background-size:cover;background-position:center 38%;
   filter:saturate(0.62) brightness(0.85);
 }
@@ -137,23 +140,58 @@ a{color:inherit;text-decoration:none;}
   padding:0 6vw 8vh;
 }
 .hero-copy{max-width:600px;}
+
+/* Regra base do "eyebrow" (rótulo pequeno em maiúsculas), usada em outras
+   seções da página (quem-somos, propósito, loja, CTA) — mantida aqui para
+   não quebrar essas seções, mesmo que o herói agora use o título grande. */
 .eyebrow{
   color:var(--pink-deep);font-size:15px;letter-spacing:.2em;text-transform:uppercase;
   font-weight:700;margin-bottom:18px;
   display:flex;align-items:center;gap:10px;
-  text-shadow:0 2px 12px rgba(0,0,0,.25);
 }
-.eyebrow .mark{
-  width:22px;height:22px;flex-shrink:0;
-}
+.eyebrow .mark{width:22px;height:22px;flex-shrink:0;}
 .eyebrow .mark img{width:100%;height:100%;object-fit:contain;}
-.hero-copy h1{
-  font-size:clamp(52px,8.5vw,96px);
-  font-weight:500;line-height:1.04;letter-spacing:-0.015em;
+
+/* --------------------------------------------------------------------------
+   1.3a — TÍTULO GRANDE DO HERÓI (logo + "Instituto Elo Rosa")
+   Fica em cima do background, no topo do bloco de texto. Tamanho grande,
+   porém contido (não deve competir com a tagline/parágrafo abaixo).
+   -------------------------------------------------------------------------- */
+.hero-title-row{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:6px;
+}
+.hero-logo{
+  width:56px;height:56px;flex-shrink:0;
+  border-radius:50%;
+  background:rgba(247,241,234,.08);
+  display:flex;align-items:center;justify-content:center;
+  padding:8px;
+}
+.hero-logo img{width:100%;height:100%;object-fit:contain;}
+.hero-title{
+  /* "grande, mas não exagerado": propositalmente menor que o antigo h1 de
+     tagline (que ia até 96px) */
+  font-size:clamp(30px,5vw,52px);
+  font-weight:600;line-height:1.08;letter-spacing:-.01em;
   color:var(--cream);
   text-shadow:0 4px 24px rgba(0,0,0,.35);
 }
-.hero-copy p{
+@media(max-width:760px){
+  .hero-logo{width:42px;height:42px;}
+}
+
+/* tagline curta, logo abaixo do título grande (frase que já existia) */
+.hero-tagline{
+  margin-top:10px;
+  font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+  font-size:clamp(17px,2.2vw,22px);
+  color:var(--pink);
+  text-shadow:0 2px 12px rgba(0,0,0,.25);
+}
+
+/* parágrafo de descrição (mesmo estilo que já existia) */
+.hero-desc{
   margin-top:20px;font-size:15.5px;line-height:1.75;color:rgba(247,241,234,.82);
   max-width:460px;
 }
@@ -161,9 +199,8 @@ a{color:inherit;text-decoration:none;}
   display:inline-block;margin-top:28px;padding:13px 30px;
   background:var(--pink);color:#3A2028;border-radius:30px;
   font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
-  transition:background .2s;
+  /* hover (escurecer) e clique (efeito de bolha) vêm da classe .fx-btn */
 }
-.hero-btn:hover{background:var(--pink-deep);}
 
 /* scroll indicator */
 .scroll-cue{
@@ -204,7 +241,10 @@ a{color:inherit;text-decoration:none;}
   position:relative;z-index:2;
   background:var(--pink);
   color:#3A2028;
-  padding:14px 6vw;
+  /* altura reduzida em 1/6 em relação ao valor original (14px → ~11.7px de
+     padding vertical), a pedido: a faixa fica mais fina, mantendo as
+     proporções internas dos elementos */
+  padding:calc(14px * 5 / 6) 6vw;
   display:flex;justify-content:space-between;align-items:center;
 }
 .peek .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
@@ -214,6 +254,8 @@ a{color:inherit;text-decoration:none;}
   font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   transition:background .2s;
 }
+/* aqui o hover fica escuro (roxo), diferente do padrão rosa do .fx-btn —
+   mantido de propósito, pois este botão já nasce escuro sobre o fundo rosa */
 .peek .peek-btn:hover{background:var(--wood-dark);}
 
 /* --------------------------------------------------------------------------
@@ -544,7 +586,7 @@ footer{
    e links centralizados. A faixa recebe uma transição para poder "sumir".
    -------------------------------------------------------------------------- */
 .nav{
-  transition:transform .55s cubic-bezier(.6,0,.15,1), opacity .5s ease;
+  transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .6s ease;
   gap:14px;
 }
 .nav.nav--hidden{
@@ -592,7 +634,7 @@ footer{
   box-shadow:0 8px 20px rgba(22,15,32,.4);
   display:flex;align-items:center;justify-content:center;
   opacity:0;transform:scale(.7);pointer-events:none;
-  transition:opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
+  transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);
 }
 .nav-pill.show{opacity:1;transform:scale(1);pointer-events:auto;}
 .nav-pill .menu-btn{width:30px;height:30px;}
@@ -619,7 +661,7 @@ footer{
   background:linear-gradient(180deg, var(--wood) 0%, var(--wood-dark) 100%);
   box-shadow:12px 0 40px rgba(0,0,0,.35);
   transform:translateX(-105%);
-  transition:transform .5s cubic-bezier(.6,0,.15,1);
+  transition:transform .65s cubic-bezier(.22,1,.36,1);
   padding:28px 26px;
   display:flex;flex-direction:column;gap:36px;
 }
@@ -639,11 +681,37 @@ footer{
 .menu-drawer-links a:hover{color:var(--pink);padding-left:10px;}
 
 /* --------------------------------------------------------------------------
-   2.6 — BOTÃO "DESCOBRIR", canto superior direito da faixa.
+   2.6 — CLASSE COMPARTILHADA ".fx-btn": dá o mesmo efeito visual a qualquer
+   botão rosa do site — usada no "Descobrir" (faixa), "fazer parte" (herói)
+   e "eventos" (faixa peek). Efeito: ao passar o mouse, só ESCURECE (sem
+   mudar de tamanho); ao CLICAR, faz uma animação suave de "bolha" (cresce -
+   diminui - volta ao normal), sem nunca sumir da tela.
+   -------------------------------------------------------------------------- */
+.fx-btn{
+  cursor:pointer;
+  transform:scale(1);
+  transition:background .35s ease, transform .35s ease;
+  will-change:transform, background;
+}
+.fx-btn:hover,
+.fx-btn:focus-visible{
+  background:var(--pink-deep);
+}
+.fx-btn.is-clicked{
+  animation:bubblePop .85s cubic-bezier(.33,1,.68,1) forwards;
+}
+@keyframes bubblePop{
+  0%{transform:scale(1);}
+  40%{transform:scale(1.1);}
+  70%{transform:scale(.97);}
+  100%{transform:scale(1);}
+}
+
+/* --------------------------------------------------------------------------
+   2.6a — BOTÃO "DESCOBRIR", canto superior direito da faixa.
    Rosa com texto roxo escuro (mesma cor do fundo da faixa), formato cilindro
-   (bem arredondado nas pontas, não uma pílula fina nem um quadrado).
-   Ao passar o mouse/dedo: cresce e faz um "estouro de bolha" (cresce-diminui-
-   volta) sem nunca sumir. Fica encostado dentro do fundo da faixa.
+   (bem arredondado nas pontas, não uma pílula fina nem um quadrado). Fica
+   encostado dentro do fundo da faixa. O efeito de hover/clique vem de .fx-btn.
    -------------------------------------------------------------------------- */
 .discover-btn{
   margin-left:auto;
@@ -654,20 +722,6 @@ footer{
   padding:10px 26px;
   border-radius:22px;              /* arredondado moderado, formato cilindro */
   white-space:nowrap;
-  transform:scale(1);
-  transition:background .2s ease;
-  will-change:transform;
-}
-.discover-btn:hover,
-.discover-btn:focus-visible{
-  background:var(--pink-deep);
-  animation:bubblePop .5s ease forwards;
-}
-@keyframes bubblePop{
-  0%{transform:scale(1);}
-  35%{transform:scale(1.16);}
-  65%{transform:scale(.94);}
-  100%{transform:scale(1.06);}
 }
 @media(max-width:760px){
   .discover-btn{padding:8px 18px;font-size:11.5px;}
@@ -676,21 +730,23 @@ footer{
 /* --------------------------------------------------------------------------
    2.7 — Efeito "bolha" no botão de menu (hambúrguer), na faixa e na pastilha.
    Ao passar o mouse: efeito inverso ao do botão Descobrir — diminui-cresce-
-   volta — mantendo o mesmo espírito minimalista sem nunca sumir.
+   volta — de forma suave, sem nunca sumir.
    -------------------------------------------------------------------------- */
 .menu-btn{
+  cursor:pointer;
   transform:scale(1);
+  transition:transform .35s ease;
   will-change:transform;
 }
 .menu-btn:hover,
 .menu-btn:focus-visible{
-  animation:bubblePopInverse .5s ease forwards;
+  animation:bubblePopInverse .85s cubic-bezier(.33,1,.68,1) forwards;
 }
 @keyframes bubblePopInverse{
   0%{transform:scale(1);}
-  35%{transform:scale(.86);}
-  65%{transform:scale(1.1);}
-  100%{transform:scale(.96);}
+  40%{transform:scale(.9);}
+  70%{transform:scale(1.06);}
+  100%{transform:scale(1);}
 }
 
 /* mobile: a gaveta vira uma peça pequena, ancorada no canto sup. esquerdo,
