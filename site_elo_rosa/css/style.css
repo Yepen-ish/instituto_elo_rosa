@@ -533,3 +533,178 @@ footer{
   section{padding:80px 6vw;}
   .hero{height:82vh;}
 }
+
+/* ##########################################################################
+   MÓDULO 2 — NOVO MENU (hambúrguer + faixa que esconde + pastilha + gaveta)
+   Adicionado por cima do Módulo 1, sem remover nada do que já existia.
+   ########################################################################## */
+
+/* --------------------------------------------------------------------------
+   2.1 — Ajustes na .nav já existente: agora com botão hambúrguer à esquerda
+   e links centralizados. A faixa recebe uma transição para poder "sumir".
+   -------------------------------------------------------------------------- */
+.nav{
+  transition:transform .55s cubic-bezier(.6,0,.15,1), opacity .5s ease;
+  gap:14px;
+}
+.nav.nav--hidden{
+  transform:translateY(-110%);
+  opacity:0;
+  pointer-events:none;
+}
+.nav .links{
+  flex:1;
+  justify-content:center;
+}
+.nav .word{margin-left:4px;}
+
+/* --------------------------------------------------------------------------
+   2.2 — Botão hambúrguer (3 barras), usado tanto na faixa quanto na pastilha.
+   Anima virando um "X" quando o menu está aberto.
+   -------------------------------------------------------------------------- */
+.menu-btn{
+  width:34px;height:34px;flex-shrink:0;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  background:transparent;border:none;cursor:pointer;
+  border-radius:50%;
+  transition:background .25s ease;
+}
+.menu-btn:hover{background:rgba(255,255,255,.08);}
+.menu-btn span{
+  width:18px;height:2px;border-radius:2px;background:var(--cream);
+  transition:transform .35s cubic-bezier(.6,0,.15,1), opacity .25s ease, width .3s ease;
+}
+.menu-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.menu-btn.is-open span:nth-child(2){opacity:0;width:0;}
+.menu-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* --------------------------------------------------------------------------
+   2.3 — Pastilha (quadrado de bordas redondas) fixa no canto superior
+   esquerdo. Some enquanto a faixa está visível; aparece quando a faixa some.
+   Usa a mesma textura granulada + gradiente roxo da faixa.
+   -------------------------------------------------------------------------- */
+.nav-pill{
+  position:fixed;top:12px;left:16px;z-index:55;
+  width:46px;height:46px;border-radius:16px;
+  background:
+    repeating-linear-gradient(100deg, rgba(0,0,0,.08) 0px, rgba(0,0,0,.08) 2px, transparent 2px, transparent 7px),
+    linear-gradient(180deg, var(--wood) 0%, var(--wood-dark) 100%);
+  box-shadow:0 8px 20px rgba(22,15,32,.4);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.7);pointer-events:none;
+  transition:opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.nav-pill.show{opacity:1;transform:scale(1);pointer-events:auto;}
+.nav-pill .menu-btn{width:30px;height:30px;}
+
+/* --------------------------------------------------------------------------
+   2.4 — Overlay escuro atrás da gaveta/cortina do menu
+   -------------------------------------------------------------------------- */
+.menu-overlay{
+  position:fixed;inset:0;z-index:56;
+  background:rgba(22,15,32,.55);
+  opacity:0;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.menu-overlay.show{opacity:1;pointer-events:auto;}
+
+/* --------------------------------------------------------------------------
+   2.5 — Gaveta / cortina do menu, lado esquerdo.
+   Desktop: painel médio (380px), do tamanho de "uma cortina", não a tela
+   inteira. Mobile: peça pequena ancorada no canto superior esquerdo.
+   -------------------------------------------------------------------------- */
+.menu-drawer{
+  position:fixed;top:0;left:0;bottom:0;z-index:57;
+  width:380px;max-width:82vw;
+  background:linear-gradient(180deg, var(--wood) 0%, var(--wood-dark) 100%);
+  box-shadow:12px 0 40px rgba(0,0,0,.35);
+  transform:translateX(-105%);
+  transition:transform .5s cubic-bezier(.6,0,.15,1);
+  padding:28px 26px;
+  display:flex;flex-direction:column;gap:36px;
+}
+.menu-drawer.open{transform:translateX(0);}
+
+.menu-drawer-head{display:flex;align-items:center;gap:12px;}
+.menu-drawer-head .mark{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(217,139,163,.4);}
+.menu-drawer-head .mark img{width:100%;height:100%;object-fit:cover;}
+.menu-drawer-head .drawer-name{font-family:'Fraunces',serif;font-weight:700;font-size:19px;color:var(--cream);line-height:1.2;}
+
+.menu-drawer-links{display:flex;flex-direction:column;gap:4px;}
+.menu-drawer-links a{
+  color:var(--cream);font-family:'Fraunces',serif;font-weight:500;font-size:24px;
+  padding:14px 4px;border-bottom:1px solid rgba(247,241,234,.08);
+  transition:color .2s, padding-left .2s;
+}
+.menu-drawer-links a:hover{color:var(--pink);padding-left:10px;}
+
+/* --------------------------------------------------------------------------
+   2.6 — BOTÃO "DESCOBRIR", canto superior direito da faixa.
+   Rosa com texto roxo escuro (mesma cor do fundo da faixa), formato cilindro
+   (bem arredondado nas pontas, não uma pílula fina nem um quadrado).
+   Ao passar o mouse/dedo: cresce e faz um "estouro de bolha" (cresce-diminui-
+   volta) sem nunca sumir. Fica encostado dentro do fundo da faixa.
+   -------------------------------------------------------------------------- */
+.discover-btn{
+  margin-left:auto;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--pink);
+  color:var(--wood-dark);
+  font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;
+  padding:10px 26px;
+  border-radius:22px;              /* arredondado moderado, formato cilindro */
+  white-space:nowrap;
+  transform:scale(1);
+  transition:background .2s ease;
+  will-change:transform;
+}
+.discover-btn:hover,
+.discover-btn:focus-visible{
+  background:var(--pink-deep);
+  animation:bubblePop .5s ease forwards;
+}
+@keyframes bubblePop{
+  0%{transform:scale(1);}
+  35%{transform:scale(1.16);}
+  65%{transform:scale(.94);}
+  100%{transform:scale(1.06);}
+}
+@media(max-width:760px){
+  .discover-btn{padding:8px 18px;font-size:11.5px;}
+}
+
+/* --------------------------------------------------------------------------
+   2.7 — Efeito "bolha" no botão de menu (hambúrguer), na faixa e na pastilha.
+   Ao passar o mouse: efeito inverso ao do botão Descobrir — diminui-cresce-
+   volta — mantendo o mesmo espírito minimalista sem nunca sumir.
+   -------------------------------------------------------------------------- */
+.menu-btn{
+  transform:scale(1);
+  will-change:transform;
+}
+.menu-btn:hover,
+.menu-btn:focus-visible{
+  animation:bubblePopInverse .5s ease forwards;
+}
+@keyframes bubblePopInverse{
+  0%{transform:scale(1);}
+  35%{transform:scale(.86);}
+  65%{transform:scale(1.1);}
+  100%{transform:scale(.96);}
+}
+
+/* mobile: a gaveta vira uma peça pequena, ancorada no canto sup. esquerdo,
+   em vez de ocupar a tela inteira de cima a baixo */
+@media(max-width:760px){
+  .menu-drawer{
+    top:64px;left:12px;bottom:auto;
+    width:min(78vw,300px);
+    border-radius:18px;
+    padding:20px;
+    transform:translateY(-14px) scale(.92);
+    opacity:0;pointer-events:none;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+  }
+  .menu-drawer.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  .menu-drawer-links a{font-size:19px;padding:10px 2px;}
+}
